@@ -1,0 +1,6 @@
+﻿{
+  "Count": 200,
+  "Parallelism": 5,
+  "SavePath": "./outputs",
+  "RandomImageUrl": "https://picsum.photos/200/300"
+}
