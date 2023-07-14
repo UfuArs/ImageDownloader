@@ -27,13 +27,10 @@ void Downloader_RefreshScreen(object? sender, DownloadCompletedEventArgs e)
 {
     int maxProgressChunk = config.Count.ToString().Length;
     Console.SetCursorPosition(25, Console.CursorTop);
-    //Console.Write(e.Index.ToString() + " ".PadRight(config.Count.ToString().Length));
     Console.Write(e.Index);
     Console.SetCursorPosition(25, Console.CursorTop);
-    Thread.Sleep(10);
 }
 
 downloader.Start();
-Console.WriteLine("");
 Console.WriteLine("Download Completed...");
 Console.ReadLine();
