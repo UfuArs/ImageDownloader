@@ -15,7 +15,6 @@ namespace ImageDownloader
     {
         private InputConfig _config;
 
-        private int _usedParallelDownloadCount = 0;
         static bool Locker;
         static int _downloadedCount = 0;
         static int _remainDownloadCount = 0;
@@ -23,7 +22,7 @@ namespace ImageDownloader
         private bool _isCancelJobs = false;
 
         public delegate void DownloadCompleted(int count);
-        public event EventHandler RefreshScreen;
+        public event EventHandler<DownloadCompletedEventArgs> RefreshScreen;
 
         public Downloader(InputConfig config)
         {
@@ -99,14 +98,8 @@ namespace ImageDownloader
             {
                 Locker = true;
             }
-            //if(_remainDownloadCount <= 0)
-            //{
-            //    Locker = true;
-            //}
-            // notifiy console
-            //this.RefreshScreen(sender, _downloadedCount
-            RefreshScreen?.Invoke(this, e);
-            //ThresholdReached?.Invoke(this, e);
+
+            RefreshScreen?.Invoke(this, new DownloadCompletedEventArgs { Index = _downloadedCount});
         }
     }
 }

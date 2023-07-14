@@ -7,7 +7,6 @@ using System.Net.Sockets;
 
 
 Console.WriteLine("App Started..");
-int i = 0;
 
 InputConfig config = ConfigLoader.Load();
 
@@ -21,12 +20,20 @@ Console.CancelKeyPress += delegate (object? sender, ConsoleCancelEventArgs e)
     Console.WriteLine("App Canceled..");
 };
 
-void Downloader_RefreshScreen(object? sender, EventArgs e)
+Console.WriteLine("Downloading {0} images ({1} parallel downloads at most)", config.Count, config.Parallelism);
+Console.Write("Downloaded Image Count : 0");
+
+void Downloader_RefreshScreen(object? sender, DownloadCompletedEventArgs e)
 {
-    i++;
-    Console.WriteLine("Downloaded: " + i.ToString());
+    int maxProgressChunk = config.Count.ToString().Length;
+    Console.SetCursorPosition(25, Console.CursorTop);
+    //Console.Write(e.Index.ToString() + " ".PadRight(config.Count.ToString().Length));
+    Console.Write(e.Index);
+    Console.SetCursorPosition(25, Console.CursorTop);
+    Thread.Sleep(10);
 }
 
 downloader.Start();
+Console.WriteLine("");
 Console.WriteLine("Download Completed...");
 Console.ReadLine();
